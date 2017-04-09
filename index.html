@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number Counter</title>
+
+    <style>
+    
+    
+    
+    </style>  
+  </head>
+
+  <body>
+    <h1>Number Counter</h1>
+
+    <p>Type the number you'd like to add here:</p>
+    <input type="text" id="numberCounter"/>
+    <input type="submit" id="submitButton" onclick="entryCount()"/>
+    <button type="button" id="resetButton" onclick="reset()">Reset</button>
+
+    <p>Number of entries: <span id="entryCount"></span></p>    
+    <p>Total of entries: <span id="entryTotal"></span></p>
+    <p>Average of entries: <span id="entryAverage"></span></p>
+    
+    
+    <script>
+      
+      var count = 0;
+      var entryTotal = 0;
+      
+      function entryCount (){
+        var entry = document.getElementById("numberCounter").value;       
+        count++;
+        document.getElementById("entryCount").innerHTML = count;  
+        
+        entryTotal = entryTotal + Number(entry);              
+        document.getElementById("entryTotal").innerHTML = entryTotal;
+        
+        var average = entryTotal / count;
+        
+        document.getElementById("entryAverage").innerHTML = average;
+        
+      }
+      
+      
+      function add(a, b) {
+        return a + b;
+      }
+      
+      function reset() {
+        location.reload();
+      }
+    
+    </script>
+  </body>
+</html>
