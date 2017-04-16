@@ -11,8 +11,18 @@
       body{
         text-align: center;
       }
-    
-    </style>  
+      
+      button{
+        margin:1rem;
+      }
+      
+      span{
+        color:green;
+        font-weight:bold;
+      }
+      
+    </style>
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
   </head>
 
   <body>
@@ -20,37 +30,63 @@
 
     <p>Type the number you'd like to add here:</p>
     <input type="text" id="numberCounter"/>
-    <input type="submit" id="submitButton" onclick="entryCount()"/>
-    <button type="button" id="resetButton" onclick="reset()">Reset</button>
+    <input type="submit" id="submitButton"/><br />
+    <button type="button" id="resetButton">Reset Input Field</button><br />
+    <button type="button" id="reloadButton">Restart Count</button>    
 
-    <p>Number of entries: <span id="entryCount"></span></p>    
+    <h2>Numbers</h2>
+    <p>Amount of number entries: <span id="entryCount"></span></p>    
     <p>Total of entries: <span id="entryTotal"></span></p>
-    <p>Average of entries: <span id="entryAverage"></span></p>
+    <p>Average of entries: <span id="entryAverage"></span></p><br />
+    <h2>Words</h2>
+    <p>Amount of word entries: <span id="wordEntryCount"></span></p>
+    <p>Your current sentence: <span id="sentence"></span></p>
     
     
     <script>
       
-      var count = 0;
+      var numberCount = 0;
+      var wordCount = 0;
       var entryTotal = 0;
-      
-      function entryCount (){
-        var entry = document.getElementById("numberCounter").value;       
-        count++;
-        document.getElementById("entryCount").innerHTML = count;  
-        
-        entryTotal = entryTotal + Number(entry);              
-        document.getElementById("entryTotal").innerHTML = entryTotal;
-        
-        var average = entryTotal / count;
-        
-        document.getElementById("entryAverage").innerHTML = average;
-        
-      }
+      var sentence = [];
 
-      function reset() {
+     $(document).ready(function() {
+       $("#submitButton").click(entryCount);
+       $("#reloadButton").click(reload);
+       $("#resetButton").click(resetValue);
+              
+       function entryCount(){
+         
+         var entry = $("#numberCounter").val();
+         
+         if (entry == ''){
+           alert("You haven't entered anything. Please try again!")
+         } else if (isNaN(entry) == false){    
+             numberCount++;
+             $("#entryCount").html(numberCount);
+             entryTotal = entryTotal + Number(entry);
+             $("#entryTotal").html(entryTotal);
+             var average = entryTotal / numberCount;
+             $("#entryAverage").html(average);
+           } 
+         
+         else {
+            wordCount++;
+            $("#wordEntryCount").html(wordCount);
+            sentence.push(entry + " ");
+            $("#sentence").html(sentence);
+         }
+       }
+             
+      function resetValue (){
+        $("#numberCounter").val("");
+      };
+       
+      function reload() {
         location.reload();
       }
     
+     });
     </script>
   </body>
 </html>
